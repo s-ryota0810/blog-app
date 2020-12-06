@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: articles
@@ -11,8 +13,8 @@
 class Article < ApplicationRecord
   validates :title, presence: true
   validates :content, presence: true
-  
+
   def display_created_at
-    I18n.l(self.created_at, formats: :default )
+    I18n.l(created_at, formats: :default)
   end
 end
