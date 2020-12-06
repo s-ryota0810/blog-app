@@ -23,7 +23,8 @@ class ArticlesController < ApplicationController
     end
   end
 
-  def edit; end
+  def edit
+  end
 
   def update
     if @article.update(article_params)
