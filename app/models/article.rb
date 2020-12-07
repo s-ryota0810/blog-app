@@ -11,10 +11,20 @@
 #  updated_at :datetime         not null
 #
 class Article < ApplicationRecord
-  validates :title, presence: true
-  validates :content, presence: true
+  validates :title, presence: true, length: { minimum: 2, maximum: 100 },
+                    format: { with: /\A(?!\@)/ }
+  validates :content, presence: true, length: { minimum: 10 }, uniqueness: true
 
+  validate :validate_title_and_content_length
+  
   def display_created_at
     I18n.l(created_at, formats: :default)
+  end
+  
+  private
+  
+  def validate_title_and_content_length
+    char_count = self.title.length + self.content.length
+    errors.add(:title, 'と内容は合計50文字以上で書いてください。') unless char_count > 50
   end
 end
