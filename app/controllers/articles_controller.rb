@@ -12,11 +12,11 @@ class ArticlesController < ApplicationController
   def show; end
 
   def new
-    @article = Article.new
+    @article = current_user.articles.build #ユーザーと関連ができたため、newからbuildへ変更
   end
 
   def create
-    @article = Article.new(article_params)
+    @article = current_user.articles.build(article_params)
     if @article.save
       redirect_to article_path(@article), notice: '保存できたよ'
     else
