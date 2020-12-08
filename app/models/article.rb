@@ -9,6 +9,11 @@
 #  title      :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  user_id    :integer
+#
+# Indexes
+#
+#  index_articles_on_user_id  (user_id)
 #
 class Article < ApplicationRecord
   validates :title, presence: true, length: { minimum: 2, maximum: 100 },
@@ -16,6 +21,8 @@ class Article < ApplicationRecord
   validates :content, presence: true, length: { minimum: 10 }, uniqueness: true
 
   validate :validate_title_and_content_length
+  
+  belongs_to :user
 
   def display_created_at
     I18n.l(created_at, formats: :default)
