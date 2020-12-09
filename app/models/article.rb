@@ -27,6 +27,10 @@ class Article < ApplicationRecord
   def display_created_at
     I18n.l(created_at, formats: :default)
   end
+  
+  def author_name
+    self.user.display_name
+  end
 
   private
 
