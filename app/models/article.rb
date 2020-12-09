@@ -5,11 +5,11 @@
 # Table name: articles
 #
 #  id         :integer          not null, primary key
-#  content    :text
-#  title      :string
+#  content    :text             not null
+#  title      :string           not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  user_id    :integer
+#  user_id    :integer          not null
 #
 # Indexes
 #
@@ -26,6 +26,10 @@ class Article < ApplicationRecord
 
   def display_created_at
     I18n.l(created_at, formats: :default)
+  end
+  
+  def author_name
+    self.user.display_name
   end
 
   private

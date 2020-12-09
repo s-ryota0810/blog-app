@@ -23,7 +23,9 @@
             %a{:href => "#"} プロフィール
             = link_to 'ログアウト', destroy_user_session_path, data: { method: 'delete' }
       - else
-        = link_to 'ログイン', new_user_session_path, class: 'header_loginBtn'
+        .header_Btn
+          = link_to 'Sign in', new_user_session_path, class: 'header_Btn_login'
+          = link_to 'Sing up', new_user_registration_path, class: 'header_Btn_signup'
     - if flash.present?
       .flash
         - flash.each do |key, value|
