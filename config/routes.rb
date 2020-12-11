@@ -8,4 +8,8 @@ Rails.application.routes.draw do
   resources :articles do
     resources :comments, only: %i[new create]
   end
+  
+  
+  #index不要のため（プロフィールは１つだから）
+  resource :profile, only: [:show, :edit, :update]
 end
