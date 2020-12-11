@@ -11,3 +11,6 @@
       .profilePage_user_introduction
         あああああああああああああああああ
         
+  - current_user.articles.all.each do |article|
+    = render 'commons/article', article: article
+            
