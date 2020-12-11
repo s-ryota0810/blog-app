@@ -9,4 +9,26 @@ class ProfilesController < ApplicationController
   def edit
     @profile = current_user.build_profile #has_oneの時はこれ(一つしかないから？
   end
+  
+  def update
+    @profile = current_user.build_profile(profile_params)
+    if @profile.save
+      redirect_to profile_path, notice: 'プロフィールを更新しました'
+    else
+      flash.now[:error] = '更新できませんでした'
+      render 'edit'
+    end
+  end
+  
+  private
+  
+    def profile_params
+      params.require(:profile).permit(
+        :nickname,
+        :introduction,
+        :gender,
+        :birthday,
+        :subscribed
+      )
+    end
 end
