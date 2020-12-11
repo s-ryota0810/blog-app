@@ -6,6 +6,10 @@ Rails.application.routes.draw do
   root to: 'articles#index'
 
   resources :articles do
-    resources :comments, only: [:new, :create]
+    resources :comments, only: %i[new create]
   end
+  
+  
+  #index不要のため（プロフィールは１つだから）
+  resource :profile, only: [:show, :edit, :update]
 end

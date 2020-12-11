@@ -21,16 +21,16 @@ class Article < ApplicationRecord
   validates :content, presence: true, length: { minimum: 10 }, uniqueness: true
 
   validate :validate_title_and_content_length
-  
+
   belongs_to :user
   has_many :comments, dependent: :destroy
 
   def display_created_at
     I18n.l(created_at, formats: :default)
   end
-  
+
   def author_name
-    self.user.display_name
+    user.display_name
   end
 
   private
