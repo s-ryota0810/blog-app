@@ -7,11 +7,18 @@ class ProfilesController < ApplicationController
   end
   
   def edit
-    @profile = current_user.build_profile #has_oneの時はこれ(一つしかないから？
+#    if current_user.profile.present?
+#      @profile = current_user.profile
+#    else
+#      @profile = current_user.build_profile #has_oneの時はこれ(一つしかないから？
+#    end
+
+    @profile = current_user.prepare_profile
   end
   
   def update
-    @profile = current_user.build_profile(profile_params)
+    @profile = current_user.prepare_profile
+    @profile.assign_attributes(profile_params)
     if @profile.save
       redirect_to profile_path, notice: 'プロフィールを更新しました'
     else
