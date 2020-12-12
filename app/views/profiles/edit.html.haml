@@ -5,6 +5,10 @@
     
   = form_with(model: @profile, url: profile_path, method: 'put', local: true) do |f|
     %div
+      = f.label :avatar, 'アバター'
+    %div
+      = f.file_field :avatar
+    %div
       = f.label :nickname, 'ハンドルネーム'
     %div
       = f.text_field :nickname, class: 'text'
@@ -14,8 +18,9 @@
       = f.text_area :introduction, class: 'text'
     %div
       = f.label :gender, '性別'
-    %div
-      = f.select :gender, Profile.genders.keys, {}, class: 'text'
+    %div 
+      -#[['男性','male'],['女性','female']]を渡せば良い
+      = f.select :gender, Profile.genders.map { |k, v| [ I18n.t("enum.genders.#{k}"), k] }, {}, class: 'text'
     %div
       = f.label :birthday, '生年月日'
     %div

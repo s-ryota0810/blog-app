@@ -24,6 +24,8 @@ class User < ApplicationRecord
 
   has_many :articles, dependent: :destroy
   has_one :profile, dependent: :destroy
+  
+  delegate :birthday, :gender, :introduction, :age, to: :profile, allow_nil: true
 
   def has_written?(article)
     articles.exists?(id: article.id)
@@ -32,10 +34,40 @@ class User < ApplicationRecord
   # akaashi0810@gmail.com
 
   def display_name
-    email.split('@').first
+#    if profile && profile.nickname
+#      profile.nickname
+#    else
+#      self.email.split('@').first
+#    end
+    
+    #ぼっち演算子
+    profile&.nickname || self.email.split('@').first
   end
+  
+  ##delegateでぼっち演算子の機能を実現
+  
+  #def birthday
+  #  profile&.birthday
+  #end
+  #
+  #def gender
+  #  profile&.gender
+  #end
+  #
+  #def introduction
+  #  profile&.introduction
+  #end
   
   def prepare_profile
     profile || build_profile
   end
+  
+  def avatar_image
+    if profile&.avatar&.attached?
+      profile.avatar
+    else
+      'default-avatar.png'
+    end
+  end
+  
 end
