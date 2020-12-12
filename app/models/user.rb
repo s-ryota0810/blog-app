@@ -24,6 +24,8 @@ class User < ApplicationRecord
 
   has_many :articles, dependent: :destroy
   has_one :profile, dependent: :destroy
+  
+  delegate :birthday, :gender, :introduction, to: :profile, allow_nil: true
 
   def has_written?(article)
     articles.exists?(id: article.id)
@@ -42,17 +44,19 @@ class User < ApplicationRecord
     profile&.nickname || self.email.split('@').first
   end
   
-  def birthday
-    profile&.birthday
-  end
+  ##delegateでぼっち演算子の機能を実現
   
-  def gender
-    profile&.gender
-  end
-  
-  def introduction
-    profile&.introduction
-  end
+  #def birthday
+  #  profile&.birthday
+  #end
+  #
+  #def gender
+  #  profile&.gender
+  #end
+  #
+  #def introduction
+  #  profile&.introduction
+  #end
   
   def prepare_profile
     profile || build_profile
