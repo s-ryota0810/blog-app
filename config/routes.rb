@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
   resources :articles do
     resources :comments, only: [:new, :create]
-    resource :like, only: [:create] #likeは一つだから
+    resource :like, only: [:create, :destroy] #likeは一つだから
   end
   
   
