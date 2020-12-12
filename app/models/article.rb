@@ -29,6 +29,10 @@ class Article < ApplicationRecord
   def display_created_at
     I18n.l(created_at, formats: :default)
   end
+  
+  def like_count
+    self.likes.count
+  end
 
   def author_name
     user.display_name
