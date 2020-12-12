@@ -32,10 +32,30 @@ class User < ApplicationRecord
   # akaashi0810@gmail.com
 
   def display_name
-    email.split('@').first
+#    if profile && profile.nickname
+#      profile.nickname
+#    else
+#      self.email.split('@').first
+#    end
+    
+    #ぼっち演算子
+    profile&.nickname || self.email.split('@').first
+  end
+  
+  def birthday
+    profile&.birthday
+  end
+  
+  def gender
+    profile&.gender
+  end
+  
+  def introduction
+    profile&.introduction
   end
   
   def prepare_profile
     profile || build_profile
   end
+  
 end
