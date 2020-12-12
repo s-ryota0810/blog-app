@@ -6,7 +6,8 @@ Rails.application.routes.draw do
   root to: 'articles#index'
 
   resources :articles do
-    resources :comments, only: %i[new create]
+    resources :comments, only: [:new, :create]
+    resource :like, only: [:create] #likeは一つだから
   end
   
   
