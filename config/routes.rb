@@ -13,4 +13,5 @@ Rails.application.routes.draw do
   
   #index不要のため（プロフィールは１つだから）
   resource :profile, only: [:show, :edit, :update]
+  resources :favorites, only: [:index]
 end
