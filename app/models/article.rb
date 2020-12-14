@@ -24,9 +24,15 @@ class Article < ApplicationRecord
 
   belongs_to :user
   has_many :comments, dependent: :destroy
+  has_many :likes, dependent: :destroy
+  has_one_attached :eyecatch
 
   def display_created_at
     I18n.l(created_at, formats: :default)
+  end
+  
+  def like_count
+    self.likes.count
   end
 
   def author_name
