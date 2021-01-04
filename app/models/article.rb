@@ -17,9 +17,7 @@
 class Article < ApplicationRecord
   validates :title, presence: true, length: { minimum: 2, maximum: 100 },
                     format: { with: /\A(?!\@)/ }
-  validates :content, presence: true, length: { minimum: 10 }, uniqueness: true
 
-  validate :validate_title_and_content_length
 
   belongs_to :user
   has_many :comments, dependent: :destroy
@@ -39,10 +37,6 @@ class Article < ApplicationRecord
     user.display_name
   end
 
-  private
 
-  def validate_title_and_content_length
-    char_count = title.length + content.length
-    errors.add(:title, 'と内容は合計50文字以上で書いてください。') unless char_count > 50
-  end
+
 end
