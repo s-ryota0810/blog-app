@@ -26,6 +26,8 @@ class User < ApplicationRecord
   has_many :likes, dependent: :destroy
   has_many :favorite_articles, through: :likes, source: :article
   has_one :profile, dependent: :destroy
+  has_many :following_relationships, foreign_key: 'follower_id', class_name: 'Relationship', dependent: :destroy
+  has_many :followings, through: :following_relationships, source: :following
   
   delegate :birthday, :gender, :introduction, :age, to: :profile, allow_nil: true
 
@@ -63,6 +65,10 @@ class User < ApplicationRecord
   #def introduction
   #  profile&.introduction
   #end
+  
+  def follow!(user)
+    following_relationships.create!(following_id: user.id)
+  end
   
   def prepare_profile
     profile || build_profile
