@@ -10,7 +10,9 @@ Rails.application.routes.draw do
     resource :like, only: [:create, :destroy] #likeは一つだから
   end
   
-  resources :accounts, only: [:show]
+  resources :accounts, only: [:show] do
+    resources :follows, only: [:create]
+  end
   
   #index不要のため（プロフィールは１つだから）
   resource :profile, only: [:show, :edit, :update]
