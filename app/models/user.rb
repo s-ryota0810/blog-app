@@ -42,16 +42,7 @@ class User < ApplicationRecord
 
   # akaashi0810@gmail.com
 
-  def display_name
-#    if profile && profile.nickname
-#      profile.nickname
-#    else
-#      self.email.split('@').first
-#    end
-    
-    #ぼっち演算子
-    profile&.nickname || self.email.split('@').first
-  end
+
   
   ##delegateでぼっち演算子の機能を実現
   
@@ -86,13 +77,7 @@ class User < ApplicationRecord
     profile || build_profile
   end
   
-  def avatar_image
-    if profile&.avatar&.attached?
-      profile.avatar
-    else
-      'default-avatar.png'
-    end
-  end
+
   
   private
   

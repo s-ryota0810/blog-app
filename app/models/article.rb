@@ -25,17 +25,11 @@ class Article < ApplicationRecord
   has_one_attached :eyecatch
   has_rich_text :content
 
-  def display_created_at
-    I18n.l(created_at, formats: :default)
-  end
-  
-  def like_count
-    self.likes.count
-  end
 
-  def author_name
-    user.display_name
-  end
+  
+
+
+
 
 
 
