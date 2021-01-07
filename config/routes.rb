@@ -9,7 +9,7 @@ Rails.application.routes.draw do
 
   resources :articles do
     resources :comments, only: [:new, :create]
-    resource :like, only: [:create, :destroy] #likeは一つだから
+    resource :like, only: [:create, :destroy, :show] #likeは一つだから
   end
   
   resources :accounts, only: [:show] do
