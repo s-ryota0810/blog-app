@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   resource :timeline, only: [:show]
 
   resources :articles do
-    resources :comments, only: [:new, :create]
+    resources :comments, only: [:new, :create, :index]
     resource :like, only: [:create, :destroy, :show] #likeは一つだから
   end
   
