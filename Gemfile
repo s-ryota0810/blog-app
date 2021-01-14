@@ -1,3 +1,4 @@
+
 # frozen_string_literal: true
 
 source 'https://rubygems.org'
@@ -32,6 +33,7 @@ gem 'devise'
 gem 'faker'
 gem 'hamlit'
 gem 'aws-sdk-s3', require: false
+gem 'sidekiq', '~> 5.0' 
 
 
 # Use Active Storage variant
