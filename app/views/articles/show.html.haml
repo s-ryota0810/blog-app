@@ -24,15 +24,15 @@
     .article_heart.hidden.inactive-heart
       = image_tag 'heart.svg'
 .article
-  %h2 コメント一覧
+  %h2= I18n.t('articles.comment_list')
   .comments-container
         
 .container
   %p.btn-secondary.show-comment-form
-    コメントを追加
+    = I18n.t('articles.add_comment')
   .comment-text-area.hidden
     = text_area_tag :comment_content, '', class: 'sm'
   .btn-secondary.add-comment-button
-    コメントを追加
-
+    = I18n.t('articles.add_comment')
+    
 = javascript_pack_tag 'article'
