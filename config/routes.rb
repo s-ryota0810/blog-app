@@ -8,12 +8,14 @@ Rails.application.routes.draw do
   devise_for :users
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   root to: 'articles#index'
-  
-  resource :timeline, only: [:show]
 
-  resources :articles do
-    resources :comments, only: [:new, :create, :index]
-    resource :like, only: [:create, :destroy, :show] #likeは一つだから
+  resources :articles
+  
+  namespace :api, defaults: { format: :json }do
+    scope '/articles/:article_id' do
+      resources :comments, only: [:create, :index]
+      resource :like, only: [:create, :destroy, :show] #likeは一つだから    
+    end
   end
   
   resources :accounts, only: [:show] do
@@ -22,6 +24,10 @@ Rails.application.routes.draw do
   end
   
   #index不要のため（プロフィールは１つだから）
-  resource :profile, only: [:show, :edit, :update]
-  resources :favorites, only: [:index]
+  
+  scope module: :apps do
+    resource :profile, only: [:show, :edit, :update]
+    resources :favorites, only: [:index]
+    resource :timeline, only: [:show]
+  end
 end
