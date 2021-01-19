@@ -1,12 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Article, type: :model do
-  let!(:user) do
-    User.create!({
-      email: 'test@example.com',
-      password: 'password'
-    })
-  end
+  let!(:user) { create(:user) }
   
   context 'If title and content are entered' do
     let!(:article) do
