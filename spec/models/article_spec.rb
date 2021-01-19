@@ -4,12 +4,7 @@ RSpec.describe Article, type: :model do
   let!(:user) { create(:user) }
   
   context 'If title and content are entered' do
-    let!(:article) do
-      user.articles.build({
-        title: Faker::Lorem.characters(number: 10),
-        content: Faker::Lorem.characters(number: 300)
-      })
-    end
+    let!(:article) { build(:article, user: user) }
   
 #    before do
 #      user = User.create!({
@@ -27,12 +22,12 @@ RSpec.describe Article, type: :model do
   end
   
   context 'If the title has a single character' do
-    let!(:article) do
-      user.articles.create({
-        title: Faker::Lorem.characters(number: 1),
-        content: Faker::Lorem.characters(number: 300)
-      })
+    let!(:article) { build(:article, user: user, title: Faker::Lorem.characters(number: 1)) }
+    
+    before do
+      article.save
     end
+    
     it 'The article cannot be saved' do
       expect(article.errors.messages[:title][0]).to eq('は2文字以上で入力してください')
     end
