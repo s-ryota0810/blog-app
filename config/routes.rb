@@ -11,9 +11,13 @@ Rails.application.routes.draw do
   
   resource :timeline, only: [:show]
 
-  resources :articles do
-    resources :comments, only: [:new, :create, :index]
-    resource :like, only: [:create, :destroy, :show] #likeは一つだから
+  resources :articles
+  
+  namespace :api, defaults: { format: :json }do
+    scope '/articles/:article_id' do
+      resources :comments, only: [:create, :index]
+      resource :like, only: [:create, :destroy, :show] #likeは一つだから    
+    end
   end
   
   resources :accounts, only: [:show] do
@@ -22,6 +26,10 @@ Rails.application.routes.draw do
   end
   
   #index不要のため（プロフィールは１つだから）
-  resource :profile, only: [:show, :edit, :update]
+  resource :profile, only: [:show, :edit, :update] do    
+    collection do
+      post 'publish'
+    end
+  end
   resources :favorites, only: [:index]
 end
